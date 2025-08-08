@@ -32,8 +32,8 @@ const PopularListings = () => {
   console.log("Data", data);
   return (
     <>
-      <div className="w-screen h-screen bg-grey-100 relative">
-        <div className="w-[50%] bg-white p-4 m-5 rounded-lg shadow-md absolute top-0 right-10 ">
+      <div className="w-[50%] h-[50%] bg-gray-100 relative overflow-hidden mt-2">
+        <div className="w-full h-full bg-white p-4 rounded-lg shadow-md overflow-y-auto absolute top-0 right-0">
           {/* Table Header */}
           <div className="flex justify-between items-center font-semibold text-gray-700 border-b pb-2 mb-3">
             <span className="w-1/4">Name</span>
@@ -44,7 +44,7 @@ const PopularListings = () => {
           </div>
 
           {/* Table Body */}
-          {data.slice(0, 10).map((each) => (
+          {data.slice(0, 5).map((each) => (
             <div
               key={each.id}
               className="flex justify-between items-center text-gray-800 mb-2"
@@ -62,7 +62,7 @@ const PopularListings = () => {
               >
                 {each.price_change_24h > 0
                   ? `+${each.price_change_24h.toFixed(2)}`
-                  : `-${each.price_change_24h.toFixed(2)}`}
+                  : each.price_change_24h.toFixed(2)}
               </span>
             </div>
           ))}

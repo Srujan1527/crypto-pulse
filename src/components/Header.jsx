@@ -1,6 +1,9 @@
+import { useState } from "react";
 import binancelogo from "/binancelogo.png";
+
 import { Link } from "react-router-dom";
 const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <>
       <div className="w-full bg-white shadow-md">
@@ -34,6 +37,10 @@ const Header = () => {
             placeholder="Search Crypto currency"
             className="border-2 rounded-sm p-2"
           />
+          {}
+          <Link to="/login" className="hover:text-yellow-500 mr-2">
+            {isLoggedIn ? "Logout" : "Login"}
+          </Link>
         </div>
       </div>
     </>
