@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import useCryptoStore from "../store/useCryptoStore";
 
 const PopularListings = () => {
-  const [data, setData] = useState([]);
+  const { popularListings, setPopularListings } = useCryptoStore();
+
   useEffect(() => {
     const getCoinsData = async () => {
       const CRYPTO_BASE_URL = import.meta.env.VITE_CRYPTO_BASE_URL;
@@ -13,7 +15,7 @@ const PopularListings = () => {
           [CRYPTO_HEADER]: CRYPTO_API_KEY,
         },
       };
-      console.log("options", options);
+
       try {
         const response = await fetch(
           `${CRYPTO_BASE_URL}/coins/markets?vs_currency=usd`,
@@ -21,7 +23,7 @@ const PopularListings = () => {
         );
 
         const data = await response.json();
-        setData(data);
+        setPopularListings(data);
       } catch (e) {
         console.log(e);
       }
@@ -29,7 +31,7 @@ const PopularListings = () => {
 
     getCoinsData();
   }, []);
-  console.log("Data", data);
+  // console.log("ZustandData", popularListings);
   return (
     <>
       <div className="w-full h-full bg-gray-100 relative overflow-hidden mt-2">
@@ -44,7 +46,7 @@ const PopularListings = () => {
           </div>
 
           {/* Table Body */}
-          {data.slice(0, 5).map((each) => (
+          {popularListings.slice(0, 5).map((each) => (
             <div
               key={each.id}
               className="flex justify-between items-center text-gray-800 mb-2"

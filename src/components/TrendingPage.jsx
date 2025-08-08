@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import useCryptoStore from "../store/useCryptoStore";
 
 const TrendingPage = () => {
-  const [trendingPagedata, setTrendingPageData] = useState([]);
+  const { trendingListings, setTrendingListings } = useCryptoStore();
   useEffect(() => {
     const getCoinsData = async () => {
       const CRYPTO_BASE_URL = import.meta.env.VITE_CRYPTO_BASE_URL;
@@ -13,7 +14,7 @@ const TrendingPage = () => {
           [CRYPTO_HEADER]: CRYPTO_API_KEY,
         },
       };
-      console.log("options", options);
+
       try {
         const response = await fetch(
           `${CRYPTO_BASE_URL}/search/trending?vs_currency=usd`,
@@ -21,7 +22,7 @@ const TrendingPage = () => {
         );
 
         const data = await response.json();
-        setTrendingPageData(data.coins);
+        setTrendingListings(data.coins);
       } catch (e) {
         console.log(e);
       }
@@ -29,7 +30,7 @@ const TrendingPage = () => {
 
     getCoinsData();
   }, []);
-  console.log("TrendingPageData", trendingPagedata);
+  console.log("ZustandTrendingPageData", trendingListings);
   return (
     <>
       <div className="w-full h-full bg-gray-100 relative overflow-hidden mt-2">
@@ -44,7 +45,7 @@ const TrendingPage = () => {
           </div>
 
           {/* Table Body */}
-          {trendingPagedata.slice(0, 5).map((each) => {
+          {trendingListings.slice(0, 5).map((each) => {
             const coin = each.item;
 
             return (
