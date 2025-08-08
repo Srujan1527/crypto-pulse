@@ -1,0 +1,75 @@
+import React, { useEffect, useState } from "react";
+
+const PopularListings = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const getCoinsData = async () => {
+      const CRYPTO_BASE_URL = import.meta.env.VITE_CRYPTO_BASE_URL;
+      const CRYPTO_API_KEY = import.meta.env.VITE_CRYPTO_API_KEY;
+      const CRYPTO_HEADER = import.meta.env.VITE_CRYPTO_HEADER;
+      const options = {
+        method: "GET",
+        headers: {
+          [CRYPTO_HEADER]: CRYPTO_API_KEY,
+        },
+      };
+      console.log("options", options);
+      try {
+        const response = await fetch(
+          `${CRYPTO_BASE_URL}/coins/markets?vs_currency=usd`,
+          options
+        );
+
+        const data = await response.json();
+        setData(data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    getCoinsData();
+  }, []);
+  console.log("Data", data);
+  return (
+    <>
+      <div className="w-screen h-screen bg-grey-100 relative">
+        <div className="w-[50%] bg-white p-4 m-5 rounded-lg shadow-md absolute top-0 right-10 ">
+          {/* Table Header */}
+          <div className="flex justify-between items-center font-semibold text-gray-700 border-b pb-2 mb-3">
+            <span className="w-1/4">Name</span>
+            <span className="w-1/6">Symbol</span>
+            <span className="w-1/6">Image</span>
+            <span className="w-1/6">Price ($)</span>
+            <span className="w-1/6 truncate">24h Change ($)</span>
+          </div>
+
+          {/* Table Body */}
+          {data.slice(0, 10).map((each) => (
+            <div
+              key={each.id}
+              className="flex justify-between items-center text-gray-800 mb-2"
+            >
+              <span className="w-1/4 truncate text-base">{each.name}</span>
+              <span className="w-1/6 uppercase text-sm">{each.symbol}</span>
+              <span className="w-1/6">
+                <img src={each.image} alt={each.name} className="w-6 h-6" />
+              </span>
+              <span className="w-1/6 text-sm">${each.current_price}</span>
+              <span
+                className={`w-1/6 text-sm ${
+                  each.price_change_24h > 0 ? "text-green-500" : "text-red-500"
+                }`}
+              >
+                {each.price_change_24h > 0
+                  ? `+${each.price_change_24h.toFixed(2)}`
+                  : `-${each.price_change_24h.toFixed(2)}`}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default PopularListings;

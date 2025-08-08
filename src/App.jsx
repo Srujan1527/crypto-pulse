@@ -1,0 +1,27 @@
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/header";
+import HomePage from "./components/HomePage";
+import BuyCryptoPage from "./components/BuyCryptoPage";
+import Markets from "./components/Markets";
+import Trade from "./components/TradePage";
+import Futures from "./components/Futures";
+import Earn from "./components/Earn";
+
+function App() {
+  return (
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/buy-crypto" element={<BuyCryptoPage />} />
+        <Route path="/markets" element={<Markets />} />
+        <Route path="/trade" element={<Trade />} />
+        <Route path="/futures" element={<Futures />} />
+        <Route path="/earn" element={<Earn />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
