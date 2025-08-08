@@ -32,7 +32,7 @@ const PopularListings = () => {
   console.log("Data", data);
   return (
     <>
-      <div className="w-[50%] h-[50%] bg-gray-100 relative overflow-hidden mt-2">
+      <div className="w-full h-full bg-gray-100 relative overflow-hidden mt-2">
         <div className="w-full h-full bg-white p-4 rounded-lg shadow-md overflow-y-auto absolute top-0 right-0">
           {/* Table Header */}
           <div className="flex justify-between items-center font-semibold text-gray-700 border-b pb-2 mb-3">
@@ -57,12 +57,14 @@ const PopularListings = () => {
               <span className="w-1/6 text-sm">${each.current_price}</span>
               <span
                 className={`w-1/6 text-sm ${
-                  each.price_change_24h > 0 ? "text-green-500" : "text-red-500"
+                  each.price_change_percentage_24h > 0
+                    ? "text-green-500"
+                    : "text-red-500"
                 }`}
               >
                 {each.price_change_24h > 0
-                  ? `+${each.price_change_24h.toFixed(2)}`
-                  : each.price_change_24h.toFixed(2)}
+                  ? `+${each.price_change_percentage_24h.toFixed(2)}%`
+                  : `-${each.price_change_percentage_24h.toFixed(2)}%`}
               </span>
             </div>
           ))}
