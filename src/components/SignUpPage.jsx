@@ -1,10 +1,14 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../firebase/firebase";
+import useAuthStore from "../store/useAuthStore";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { user, setUser } = useAuthStore();
 
   const handleSignup = async () => {
     try {
@@ -13,12 +17,14 @@ const SignUpPage = () => {
         email,
         password
       );
-      console.log("sign up", userCredential);
+
+      setUser(userCredential.user);
+      navigate("/");
     } catch (error) {
       console.log("error", error.message);
     }
   };
-
+  console.log("ZustandUser", user);
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Sign Up</h2>

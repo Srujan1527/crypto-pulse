@@ -1,9 +1,13 @@
-import { useState } from "react";
 import binancelogo from "/binancelogo.png";
 
 import { Link } from "react-router-dom";
+import useAuthStore from "../store/useAuthStore";
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
+  const handleLogout = async () => {
+    await logout();
+  };
   return (
     <>
       <div className="w-full bg-white shadow-md">
@@ -37,10 +41,19 @@ const Header = () => {
             placeholder="Search Crypto currency"
             className="border-2 rounded-sm p-2"
           />
-          {}
-          <Link to="/login" className="hover:text-yellow-500 mr-2">
-            {isLoggedIn ? "Logout" : "Login"}
-          </Link>
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="hover:text-yellow-500 ml-4"
+            >
+              {" "}
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="hover:text-yellow-500 ml-4">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </>
