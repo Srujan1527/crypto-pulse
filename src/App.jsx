@@ -7,6 +7,7 @@ import Markets from "./components/Markets";
 import Trade from "./components/TradePage";
 import Futures from "./components/Futures";
 import Earn from "./components/Earn";
+import SignUpPage from "./components/SignUpPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/trade" element={<Trade />} />
         <Route path="/futures" element={<Futures />} />
         <Route path="/earn" element={<Earn />} />
+        <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </Router>
   );
