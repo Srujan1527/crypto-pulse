@@ -6,6 +6,7 @@ const useAuthStore = create((set) => ({
   user: null,
   loading: false,
   error: null,
+  setLoading: (value) => set({ loading: value }),
   login: async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -17,7 +18,7 @@ const useAuthStore = create((set) => ({
       set({ user: userCredential.user, error: null });
       return userCredential.user;
     } catch (e) {
-      set({ error: e.message });
+      set({ error: e.message, loading: false });
       throw e;
     }
   },

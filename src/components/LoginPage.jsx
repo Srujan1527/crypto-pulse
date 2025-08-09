@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import useAuthStore from "../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
 
+import toast from "react-hot-toast";
+import Loader from "./Loader";
+
 const LoginPage = () => {
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
   const error = useAuthStore((state) => state.error);
+  const loading = useAuthStore((state) => state.loading);
+  const setLoading = useAuthStore((state) => state.setLoading);
+
   // const logout = useAuthStore((state) => state.logout);
 
   const [email, setEmail] = useState("");
@@ -13,12 +19,18 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const user = await login(email, password);
-      console.log("signin User", user);
+      toast.success("Login Successfully");
+      // console.log("signin User", user);
       user && navigate("/");
     } catch (error) {
+      toast.error(error.message);
+      setLoading(false);
       console.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,14 +73,14 @@ const LoginPage = () => {
           </div>
 
           {/* Error */}
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && <p className="text-red-500 text-sm">{error} </p>}
 
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-3 rounded-lg bg-yellow-500 text-black font-semibold hover:bg-yellow-400 transition duration-300"
+            className="w-full py-3 rounded-lg bg-yellow-500 text-black font-semibold hover:bg-yellow-400 transition duration-300 flex justify-center"
           >
-            Login
+            {loading ? <Loader loading={true} /> : "Login"}
           </button>
         </form>
 

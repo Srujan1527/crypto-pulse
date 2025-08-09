@@ -3,15 +3,18 @@ import React, { useState } from "react";
 import { auth } from "../firebase/firebase";
 import useAuthStore from "../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
+import toast from "react-hot-toast";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { user, setUser, error } = useAuthStore();
+  const { user, setUser, error, loader, setLoader } = useAuthStore();
 
   const handleSignup = async () => {
     try {
+      setLoader(true);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -19,8 +22,10 @@ const SignUpPage = () => {
       );
 
       setUser(userCredential.user);
+      toast.success("SignUp Successful");
       navigate("/");
     } catch (error) {
+      toast.error(error.message);
       console.log("error", error.message);
     }
   };
@@ -69,7 +74,7 @@ const SignUpPage = () => {
             type="submit"
             className="w-full py-3 rounded-lg bg-yellow-500 text-black font-semibold hover:bg-yellow-400 transition duration-300"
           >
-            Sign Up
+            {loader ? <Loader loader={true} /> : "SignUp"}
           </button>
         </form>
 

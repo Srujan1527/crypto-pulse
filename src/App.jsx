@@ -13,6 +13,7 @@ import { auth } from "./firebase/firebase";
 import useAuthStore from "./store/useAuthStore";
 import { useEffect } from "react";
 import LoginPage from "./components/LoginPage";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const setUser = useAuthStore((state) => state.setUser);
@@ -24,19 +25,22 @@ function App() {
     return () => unsubscribe();
   }, [setUser]);
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/buy-crypto" element={<BuyCryptoPage />} />
-        <Route path="/markets" element={<Markets />} />
-        <Route path="/trade" element={<Trade />} />
-        <Route path="/futures" element={<Futures />} />
-        <Route path="/earn" element={<Earn />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/buy-crypto" element={<BuyCryptoPage />} />
+          <Route path="/markets" element={<Markets />} />
+          <Route path="/trade" element={<Trade />} />
+          <Route path="/futures" element={<Futures />} />
+          <Route path="/earn" element={<Earn />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </Router>
+      <Toaster position="top-right" />
+    </>
   );
 }
 
