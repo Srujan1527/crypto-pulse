@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./header";
 import PopularListings from "./PopularListings";
 import TrendingPage from "./TrendingPage";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -24,9 +25,12 @@ const HomePage = () => {
               <h1 className="block  mb-2 text-2xl font-bold mb-10">
                 Create your Account here
               </h1>
-              <button className="bg-[#F0B90B] p-2 rounded-md text-white w-[20%] cursor-pointer">
+              <Link
+                to="/signup"
+                className="bg-[#F0B90B] p-2 rounded-md text-white w-[20%] cursor-pointer text-center"
+              >
                 SignUp
-              </button>
+              </Link>
             </div>
           </div>
           <div className="flex flex-col gap-6 mt-10 lg:mt-0 w-1/2 h-full lg:w-1/2 ">
