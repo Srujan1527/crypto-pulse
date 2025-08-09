@@ -5,9 +5,12 @@ import useAuthStore from "../store/useAuthStore";
 const Header = () => {
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
+
   const handleLogout = async () => {
     await logout();
   };
+  console.log("Header User", user);
+
   return (
     <>
       <div className="w-full bg-white shadow-md">

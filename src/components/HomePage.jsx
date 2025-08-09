@@ -20,13 +20,10 @@ const HomePage = () => {
               TRUST US
             </h1>
 
-            <div className="flex w-full justify-start pl-30 mt-10 ">
-              <input
-                type="text"
-                className="border border-gray-900  rounded-md p-2 w-[35%]  mr-5 hover:border-[#F0B90B] focus:outline-none transition-colors duration-200"
-                placeholder="Email/Phone number"
-              />
-
+            <div className="flex flex-col w-full justify-start pl-30 mt-10  items-start ">
+              <h1 className="block  mb-2 text-2xl font-bold mb-10">
+                Create your Account here
+              </h1>
               <button className="bg-[#F0B90B] p-2 rounded-md text-white w-[20%] cursor-pointer">
                 SignUp
               </button>
