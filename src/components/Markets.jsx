@@ -6,6 +6,7 @@ import MarketTable from "./MarketTable";
 
 const Markets = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  const [activeCategoryId, setActiveCategoryId] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const [coinsData, setCoinsData] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -32,7 +33,8 @@ const Markets = () => {
       const data = await response.json();
       setCategories(data);
       console.log("DATA", data[0]?.id);
-      setActiveCategory(data[0]?.id);
+      setActiveCategoryId(data[0]?.id);
+      setActiveCategory(data[0]);
     };
 
     fetchCategories();
@@ -43,7 +45,7 @@ const Markets = () => {
       try {
         const res = await fetch(
           `${url}/coins/markets?vs_currency=usd&category=${encodeURIComponent(
-            activeCategory
+            activeCategoryId
           )}`,
           options
         );
@@ -56,11 +58,11 @@ const Markets = () => {
       }
     };
     fetchCategoryCoins();
-  }, [activeCategory]);
+  }, [activeCategoryId]);
 
   console.log("categories", categories);
   console.log("CoinData", coinsData);
-  console.log("ActiveCategory", activeCategory);
+  console.log("ActiveCategory", activeCategoryId);
   return (
     <>
       <div id="main-div">
@@ -71,10 +73,13 @@ const Markets = () => {
         />
         <CategoryTabs
           categories={categories}
-          activeCategory={activeCategory}
+          activeCategoryId={activeCategoryId}
+          onCategoryIdClick={setActiveCategoryId}
           onCategoryClick={setActiveCategory}
         />
-        {coinsData !== null && <MarketTable coinsData={coinsData} />}
+        {coinsData !== null && (
+          <MarketTable coinsData={coinsData} activeCategory={activeCategory} />
+        )}
       </div>
     </>
   );
