@@ -14,6 +14,7 @@ import useAuthStore from "./store/useAuthStore";
 import { useEffect } from "react";
 import LoginPage from "./components/LoginPage";
 import { Toaster } from "react-hot-toast";
+import CoinDetailPage from "./components/CoinDetailPage";
 
 function App() {
   const setUser = useAuthStore((state) => state.setUser);
@@ -37,6 +38,7 @@ function App() {
           <Route path="/earn" element={<Earn />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/coin/:id" element={<CoinDetailPage />} />
         </Routes>
       </Router>
       <Toaster position="top-right" />

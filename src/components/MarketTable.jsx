@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const MarketTable = ({ coinsData, activeCategory }) => {
+  const navigate = useNavigate();
+
   console.log("CoinsData", coinsData);
   if (!Array.isArray(coinsData)) {
     return (
@@ -71,7 +74,8 @@ const MarketTable = ({ coinsData, activeCategory }) => {
             {coinsData?.map((coin, index) => (
               <tr
                 key={index}
-                className=" group hover:bg-gray-800 hover:text-white transition-colors duration-200"
+                className=" group hover:bg-gray-800 hover:text-white transition-colors duration-200 cursor-pointer"
+                onClick={() => navigate(`/coin/${coin.id}`)}
               >
                 <td className="px-4 py-3 text-gray-400 group-hover:text-white">
                   {index + 1}
