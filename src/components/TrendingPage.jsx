@@ -30,7 +30,7 @@ const TrendingPage = () => {
 
     getCoinsData();
   }, []);
-  console.log("ZustandTrendingPageData", trendingListings);
+
   return (
     <>
       <div className="w-full h-full bg-gray-100 relative overflow-hidden mt-2">

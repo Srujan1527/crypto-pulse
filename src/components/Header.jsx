@@ -9,7 +9,7 @@ const Header = () => {
   const handleLogout = async () => {
     await logout();
   };
-  console.log("Header User", user);
+  // console.log("Header User", user);
 
   return (
     <>

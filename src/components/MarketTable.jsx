@@ -1,8 +1,7 @@
 import React from "react";
 
 const MarketTable = ({ coinsData, activeCategory }) => {
-  console.log("MarketTable", coinsData);
-
+  console.log("CoinsData", coinsData);
   if (!Array.isArray(coinsData)) {
     return (
       <div className="text-center text-red-500 mt-4">
