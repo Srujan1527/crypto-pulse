@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import useCryptoStore from "../store/useCryptoStore";
+import { Link } from "react-router-dom";
 
 const TrendingPage = () => {
   const { trendingListings, setTrendingListings } = useCryptoStore();

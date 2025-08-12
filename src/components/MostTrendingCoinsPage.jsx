@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const MostTrendingCoinsPage = ({ trendingCoins }) => {
+  const navigate = useNavigate();
   return (
     <div className="p-4">
       <h1 className="text-lg font-bold mb-4">🔥 Most Trending Coins</h1>
@@ -20,7 +22,11 @@ const MostTrendingCoinsPage = ({ trendingCoins }) => {
             {trendingCoins.map((item, index) => {
               const coin = item.item;
               return (
-                <tr key={coin.id} className="hover:bg-gray-50 transition">
+                <tr
+                  key={coin.id}
+                  className="hover:bg-gray-200 transition cursor-pointer "
+                  onClick={() => navigate(`/coin/${coin.id}`)}
+                >
                   <td className="px-4 py-2">{index + 1}</td>
                   <td className="px-4 py-2 flex items-center gap-2">
                     <img

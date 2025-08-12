@@ -19,7 +19,6 @@ const CoinDetailPage = () => {
       },
     };
     const fetchCoinData = async () => {
-      console.log(`${CRYPTO_BASE_URL}/coins/${id}`);
       try {
         setLoading(true);
         const res = await fetch(`${CRYPTO_BASE_URL}/coins/${id}`, options);
