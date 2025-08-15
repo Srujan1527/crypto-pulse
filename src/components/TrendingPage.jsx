@@ -1,29 +1,20 @@
 import React, { useEffect } from "react";
 import useCryptoStore from "../store/useCryptoStore";
-import { Link } from "react-router-dom";
 
 const TrendingPage = () => {
   const { trendingListings, setTrendingListings } = useCryptoStore();
   useEffect(() => {
     const getCoinsData = async () => {
-      const CRYPTO_BASE_URL = import.meta.env.VITE_CRYPTO_BASE_URL;
-      const CRYPTO_API_KEY = import.meta.env.VITE_CRYPTO_API_KEY;
-      const CRYPTO_HEADER = import.meta.env.VITE_CRYPTO_HEADER;
-      const options = {
-        method: "GET",
-        headers: {
-          [CRYPTO_HEADER]: CRYPTO_API_KEY,
-        },
-      };
+      const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
       try {
         const response = await fetch(
-          `${CRYPTO_BASE_URL}/search/trending?vs_currency=usd`,
-          options
+          `${BASE_URL}/search/trending?vs_currency=usd`
         );
-
+        console.log("trending Response", response);
         const data = await response.json();
-        setTrendingListings(data.coins);
+        console.log("trending", data);
+        setTrendingListings(data);
       } catch (e) {
         console.log(e);
       }

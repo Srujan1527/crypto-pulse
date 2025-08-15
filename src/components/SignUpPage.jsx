@@ -1,6 +1,6 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { auth } from "../firebase/firebase";
+// import { auth } from "../firebase/firebase";
 import useAuthStore from "../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
@@ -8,24 +8,43 @@ import toast from "react-hot-toast";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { user, setUser, error, loader, setLoader } = useAuthStore();
+  const { error, loader } = useAuthStore();
+  const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
-  const handleSignup = async () => {
+  const handleSignup = async (e) => {
+    e.preventDefault();
     try {
-      setLoader(true);
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      // setLoader(true);
+      // const userCredential = await createUserWithEmailAndPassword(
+      //   auth,
+      //   email,
+      //   password
+      // );
 
-      setUser(userCredential.user);
-      toast.success("SignUp Successful");
+      // setUser(userCredential.user);
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password, username }),
+      };
+
+      const response = await fetch(`${BASE_URL}/auth/signup`, options);
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.message || "Signup Failed");
+        navigate("/signup");
+      }
+      toast.success(data.message || "Signup Successful");
       navigate("/");
+      // setLoader(false);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message || "Something went wrong");
       console.log("error", error.message);
     }
   };
@@ -39,6 +58,18 @@ const SignUpPage = () => {
 
         <form onSubmit={handleSignup} className="space-y-5">
           {/* Email */}
+          <div>
+            <label className="block text-gray-300 mb-2 text-sm font-medium">
+              Username
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Username"
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:outline-none"
+              required
+            />
+          </div>
           <div>
             <label className="block text-gray-300 mb-2 text-sm font-medium">
               Email Address
@@ -60,6 +91,7 @@ const SignUpPage = () => {
             <input
               type="password"
               placeholder="Enter your password"
+              autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:outline-none"
               required

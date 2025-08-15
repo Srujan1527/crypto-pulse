@@ -6,23 +6,18 @@ const PopularListings = () => {
 
   useEffect(() => {
     const getCoinsData = async () => {
+      const BASE_URL = import.meta.env.VITE_BASE_API_URL;
       const CRYPTO_BASE_URL = import.meta.env.VITE_CRYPTO_BASE_URL;
       const CRYPTO_API_KEY = import.meta.env.VITE_CRYPTO_API_KEY;
       const CRYPTO_HEADER = import.meta.env.VITE_CRYPTO_HEADER;
-      const options = {
-        method: "GET",
-        headers: {
-          [CRYPTO_HEADER]: CRYPTO_API_KEY,
-        },
-      };
 
       try {
         const response = await fetch(
-          `${CRYPTO_BASE_URL}/coins/markets?vs_currency=usd`,
-          options
+          `${BASE_URL}/coins/markets?vs_currency=usd`
         );
-
+        console.log("res:", response);
         const data = await response.json();
+        console.log("data:", data);
         setPopularListings(data);
       } catch (e) {
         console.log(e);
@@ -31,7 +26,7 @@ const PopularListings = () => {
 
     getCoinsData();
   }, []);
-  // console.log("ZustandData", popularListings);
+  console.log("ZustandData", popularListings);
   return (
     <>
       <div className="w-full h-full bg-gray-100 relative overflow-hidden mt-2">

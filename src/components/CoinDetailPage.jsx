@@ -5,27 +5,22 @@ const CoinDetailPage = () => {
   const { id } = useParams();
   const [coinData, setCoinData] = useState(null);
   const [loading, setLoading] = useState(false);
-  console.log("id", id);
+  // console.log("id", id);
 
   useEffect(() => {
+    const BASE_URL = import.meta.env.VITE_BASE_API_URL;
     const CRYPTO_BASE_URL = import.meta.env.VITE_CRYPTO_BASE_URL;
     const CRYPTO_API_KEY = import.meta.env.VITE_CRYPTO_API_KEY;
     const CRYPTO_HEADER = import.meta.env.VITE_CRYPTO_HEADER;
-    const options = {
-      method: "GET",
-      headers: {
-        [CRYPTO_HEADER]: CRYPTO_API_KEY,
-        "Content-Type": "application/json",
-      },
-    };
+
     const fetchCoinData = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${CRYPTO_BASE_URL}/coins/${id}`, options);
-        console.log("res", res);
+        const res = await fetch(`${BASE_URL}/coins/${id}`);
+        // console.log("res", res);
 
         const data = await res.json();
-        console.log("data", data);
+        // console.log("data", data);
         setCoinData(data);
         setLoading(false);
       } catch (error) {
@@ -37,7 +32,7 @@ const CoinDetailPage = () => {
 
   if (loading) return <p>Loading...</p>;
   if (!coinData) return <p>No data found.</p>;
-  console.log(coinData);
+  // console.log(coinData);
 
   return (
     <div className="max-w-5xl mx-auto p-6">

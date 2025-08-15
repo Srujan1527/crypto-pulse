@@ -11,7 +11,7 @@ const LoginPage = () => {
   const error = useAuthStore((state) => state.error);
   const loading = useAuthStore((state) => state.loading);
   const setLoading = useAuthStore((state) => state.setLoading);
-
+  const BASE_URL = import.meta.env.VITE_BASE_API_URL;
   // const logout = useAuthStore((state) => state.logout);
 
   const [email, setEmail] = useState("");

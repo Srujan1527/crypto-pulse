@@ -12,27 +12,33 @@ const MarketTable = ({ coinsData, activeCategory }) => {
       </div>
     );
   }
-  const categoryTitle = `Top ${activeCategory?.name} Tokens by Market Capitalization`;
-  const categoryParagraph = activeCategory?.content;
-  const volume = activeCategory?.volume_24h;
-  const cap = activeCategory?.market_cap;
-  const capChange24h = activeCategory?.market_cap_change_24h;
-  const topCoins = activeCategory?.top_3_coins;
+  const categoryData = {
+    title: `Top ${activeCategory?.name} Tokens by Market Capitalization`,
+    paragraph: activeCategory?.content,
+    volume: activeCategory?.volume_24h,
+    cap: activeCategory?.market_cap,
+    capChange24h: activeCategory?.market_cap_change_24h,
+    topCoins: activeCategory?.top_3_coins,
+  };
 
   return (
     <>
       <div className="bg-gray-900 text-white p-4 rounded-lg mb-4">
-        <h1 className="text-xl font-bold">{categoryTitle}</h1>
-        <p className="text-gray-400 text-sm mt-1">{categoryParagraph}</p>
+        <h1 className="text-xl font-bold">{categoryData.title}</h1>
+        <p className="text-gray-400 text-sm mt-1">{categoryData.paragraph}</p>
 
         <div className="flex items-center gap-8 mt-4">
           <div>
             <p className="text-gray-400 text-xs uppercase">Volume (24h)</p>
-            <p className="font-semibold">${volume?.toLocaleString()}</p>
+            <p className="font-semibold">
+              ${categoryData.volume?.toLocaleString()}
+            </p>
           </div>
           <div>
             <p className="text-gray-400 text-xs uppercase">Market Cap</p>
-            <p className="font-semibold">${cap?.toLocaleString()}</p>
+            <p className="font-semibold">
+              ${categoryData.cap?.toLocaleString()}
+            </p>
           </div>
           <div>
             <p className="text-gray-400 text-xs uppercase">
@@ -40,14 +46,16 @@ const MarketTable = ({ coinsData, activeCategory }) => {
             </p>
             <p
               className={`font-semibold ${
-                capChange24h >= 0 ? "text-green-500" : "text-red-500"
+                categoryData.capChange24h >= 0
+                  ? "text-green-500"
+                  : "text-red-500"
               }`}
             >
-              {capChange24h?.toFixed(2)}%
+              {categoryData.capChange24h?.toFixed(2)}%
             </p>
           </div>
           <div className="flex items-center gap-2">
-            {topCoins?.map((coinUrl, idx) => (
+            {categoryData.topCoins?.map((coinUrl, idx) => (
               <img
                 key={idx}
                 src={coinUrl}

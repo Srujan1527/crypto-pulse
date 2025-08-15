@@ -19,21 +19,15 @@ const Markets = () => {
     { label: "Categories", value: "categories" },
     { label: "Most Trending", value: "most_trending" },
   ];
-  const url = import.meta.env.VITE_CRYPTO_BASE_URL;
-  const CRYPTO_API_KEY = import.meta.env.VITE_CRYPTO_API_KEY;
-  const CRYPTO_HEADER = import.meta.env.VITE_CRYPTO_HEADER;
+
+  const BASE_URL = import.meta.env.VITE_BASE_API_URL;
+
   // const proxy = "https://cors-anywhere.herokuapp.com/";
-  const options = {
-    method: "GET",
-    headers: {
-      [CRYPTO_HEADER]: CRYPTO_API_KEY,
-    },
-  };
 
   useEffect(() => {
     if (activeTab === "categories") {
       const fetchCategories = async () => {
-        const response = await fetch(`${url}/coins/categories`, options);
+        const response = await fetch(`${BASE_URL}/coins/categories/`);
         const data = await response.json();
         setCategories(data);
         // console.log("DATA", data[0]?.id);
@@ -50,12 +44,12 @@ const Markets = () => {
         try {
           setLoading(true);
           const res = await fetch(
-            `${url}/coins/markets?vs_currency=usd&category=${encodeURIComponent(
+            `${BASE_URL}/coins/markets?vs_currency=usd&category=${encodeURIComponent(
               activeCategoryId
-            )}`,
-            options
+            )}`
           );
           const data = await res.json();
+
           setCoinsData(data);
           setLoading(false);
         } catch (err) {
@@ -74,13 +68,13 @@ const Markets = () => {
         let endpoint = "";
 
         if (activeTab === "most_trending") {
-          endpoint = `${url}/search/trending?vs_currency=usd`;
+          endpoint = `${BASE_URL}/search/trending?vs_currency=usd`;
           try {
             setLoading(true);
-            const res = await fetch(endpoint, options);
+            const res = await fetch(endpoint);
             const data = await res.json();
             console.log("trendingTab", data);
-            setTrendingCoins(data.coins);
+            setTrendingCoins(data);
             setLoading(false);
           } catch (error) {
             setCoinsData(null);
