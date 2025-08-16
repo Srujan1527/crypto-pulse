@@ -10,7 +10,8 @@ const LoginPage = () => {
   const login = useAuthStore((state) => state.login);
   const error = useAuthStore((state) => state.error);
   const loading = useAuthStore((state) => state.loading);
-  const setLoading = useAuthStore((state) => state.setLoading);
+  const user = useAuthStore((state) => state.user);
+
   const BASE_URL = import.meta.env.VITE_BASE_API_URL;
   // const logout = useAuthStore((state) => state.logout);
 
@@ -19,20 +20,17 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    try {
-      const user = await login(email, password);
-      toast.success("Login Successfully");
-      // console.log("signin User", user);
-      user && navigate("/");
-    } catch (error) {
-      toast.error(error.message);
-      setLoading(false);
-      console.error(error.message);
-    } finally {
-      setLoading(false);
+
+    const result = await login(email, password);
+    console.log("result", result);
+    if (result.success) {
+      toast.success(result.message);
+      navigate("/");
+    } else {
+      toast.error(result.message || "Login failed");
     }
   };
+  console.log("user", user);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
@@ -50,6 +48,7 @@ const LoginPage = () => {
             <input
               type="email"
               placeholder="Enter your email"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:outline-none"
@@ -66,6 +65,7 @@ const LoginPage = () => {
               type="password"
               placeholder="Enter your password"
               value={password}
+              autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:outline-none"
               required
@@ -73,7 +73,7 @@ const LoginPage = () => {
           </div>
 
           {/* Error */}
-          {error && <p className="text-red-500 text-sm">{error} </p>}
+          {error !== null && <p className="text-red-500 text-sm">{error} </p>}
 
           {/* Submit Button */}
           <button

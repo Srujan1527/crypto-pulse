@@ -11,41 +11,17 @@ const SignUpPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { error, loader } = useAuthStore();
-  const BASE_URL = import.meta.env.VITE_BASE_API_URL;
+  const { error, loader, signup } = useAuthStore();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    try {
-      // setLoader(true);
-      // const userCredential = await createUserWithEmailAndPassword(
-      //   auth,
-      //   email,
-      //   password
-      // );
+    const result = await signup(username, email, password);
 
-      // setUser(userCredential.user);
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, username }),
-      };
-
-      const response = await fetch(`${BASE_URL}/auth/signup`, options);
-      const data = await response.json();
-
-      if (!response.ok) {
-        toast.error(data.message || "Signup Failed");
-        navigate("/signup");
-      }
-      toast.success(data.message || "Signup Successful");
-      navigate("/");
-      // setLoader(false);
-    } catch (error) {
-      toast.error(error.message || "Something went wrong");
-      console.log("error", error.message);
+    if (result.success) {
+      toast.success(result.message);
+      navigate("/login");
+    } else {
+      toast.error(result.message || "Signup failed");
     }
   };
   // console.log("ZustandUser", user);
@@ -99,7 +75,7 @@ const SignUpPage = () => {
           </div>
 
           {/* Error */}
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error !== null && <p className="text-red-500 text-sm">{error}</p>}
 
           {/* Submit Button */}
           <button
