@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import useCryptoStore from "../store/useCryptoStore";
 
 const TrendingPage = () => {
   const { trendingListings, setTrendingListings } = useCryptoStore();
+
   useEffect(() => {
     const getCoinsData = async () => {
       const BASE_URL = import.meta.env.VITE_BASE_API_URL;
@@ -11,9 +12,7 @@ const TrendingPage = () => {
         const response = await fetch(
           `${BASE_URL}/search/trending?vs_currency=usd`
         );
-        console.log("trending Response", response);
         const data = await response.json();
-        console.log("trending", data);
         setTrendingListings(data);
       } catch (e) {
         console.log(e);

@@ -12,9 +12,7 @@ const PopularListings = () => {
         const response = await fetch(
           `${BASE_URL}/coins/markets?vs_currency=usd`
         );
-        console.log("res:", response);
         const data = await response.json();
-        console.log("data:", data);
         setPopularListings(data);
       } catch (e) {
         console.log(e);

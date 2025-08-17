@@ -8,23 +8,12 @@ import Trade from "./components/TradePage";
 import Futures from "./components/Futures";
 import Earn from "./components/Earn";
 import SignUpPage from "./components/SignUpPage";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase/firebase";
-import useAuthStore from "./store/useAuthStore";
-import { useEffect } from "react";
+
 import LoginPage from "./components/LoginPage";
 import { Toaster } from "react-hot-toast";
 import CoinDetailPage from "./components/CoinDetailPage";
 
 function App() {
-  const setUser = useAuthStore((state) => state.setUser);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser);
-    });
-    return () => unsubscribe();
-  }, [setUser]);
   return (
     <>
       <Router>
