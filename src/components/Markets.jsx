@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";
 import MarketTabs from "./Tabs/MarketTabs";
 import CategoryTabs from "./Tabs/CategoryTabs";
 import MarketTable from "./MarketTable";
-import TrendingPage from "./TrendingPage";
 import MostTrendingCoinsPage from "./MostTrendingCoinsPage";
 
 const Markets = () => {
@@ -21,8 +19,6 @@ const Markets = () => {
   ];
 
   const BASE_URL = import.meta.env.VITE_BASE_API_URL;
-
-  // const proxy = "https://cors-anywhere.herokuapp.com/";
 
   useEffect(() => {
     if (activeTab === "categories") {
@@ -85,9 +81,6 @@ const Markets = () => {
       fetchOtherCoins();
     }
   }, [activeTab]);
-  // console.log("categories", categories);
-  // console.log("CoinData", coinsData);
-  // console.log("ActiveCategory", activeCategoryId);
 
   if (loading) {
     return (

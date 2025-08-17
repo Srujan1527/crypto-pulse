@@ -12,9 +12,6 @@ const LoginPage = () => {
   const loading = useAuthStore((state) => state.loading);
   const user = useAuthStore((state) => state.user);
 
-  const BASE_URL = import.meta.env.VITE_BASE_API_URL;
-  // const logout = useAuthStore((state) => state.logout);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,7 +19,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     const result = await login(email, password);
-    console.log("result", result);
+
     if (result.success) {
       toast.success(result.message);
       navigate("/");

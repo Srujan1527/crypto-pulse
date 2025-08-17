@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import useCryptoStore from "../store/useCryptoStore";
 
 const PopularListings = () => {
@@ -7,9 +7,6 @@ const PopularListings = () => {
   useEffect(() => {
     const getCoinsData = async () => {
       const BASE_URL = import.meta.env.VITE_BASE_API_URL;
-      const CRYPTO_BASE_URL = import.meta.env.VITE_CRYPTO_BASE_URL;
-      const CRYPTO_API_KEY = import.meta.env.VITE_CRYPTO_API_KEY;
-      const CRYPTO_HEADER = import.meta.env.VITE_CRYPTO_HEADER;
 
       try {
         const response = await fetch(
@@ -26,7 +23,7 @@ const PopularListings = () => {
 
     getCoinsData();
   }, []);
-  console.log("ZustandData", popularListings);
+
   return (
     <>
       <div className="w-full h-full bg-gray-100 relative overflow-hidden mt-2">

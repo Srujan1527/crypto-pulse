@@ -1,5 +1,3 @@
-import React from "react";
-
 const MarketTabs = ({ tabs, activeTab, onTabClick }) => {
   return (
     <div className="flex justify-center mt-10 border-b -2">

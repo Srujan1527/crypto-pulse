@@ -1,5 +1,3 @@
-import React from "react";
-import Header from "./header";
 import PopularListings from "./PopularListings";
 import TrendingPage from "./TrendingPage";
 import { Link } from "react-router-dom";
@@ -22,7 +20,7 @@ const HomePage = () => {
             </h1>
 
             <div className="flex flex-col w-full justify-start pl-30 mt-10  items-start ">
-              <h1 className="block  mb-2 text-2xl font-bold mb-10">
+              <h1 className="block  text-2xl font-bold mb-10">
                 Create your Account here
               </h1>
               <Link

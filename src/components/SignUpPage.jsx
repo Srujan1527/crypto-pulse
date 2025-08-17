@@ -1,6 +1,5 @@
-// import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
-// import { auth } from "../firebase/firebase";
+import { useState } from "react";
+
 import useAuthStore from "../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
@@ -24,7 +23,7 @@ const SignUpPage = () => {
       toast.error(result.message || "Signup failed");
     }
   };
-  // console.log("ZustandUser", user);
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
       <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8">
