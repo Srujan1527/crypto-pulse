@@ -4,6 +4,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import axios from "axios";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_API_URL;
+
 const useAuthStore = create(
   persist(
     (set) => ({
